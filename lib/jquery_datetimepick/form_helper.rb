@@ -49,7 +49,7 @@ class JqueryDateTimepick::InstanceTag < ActionView::Helpers::InstanceTag
       :hideIfNoPrevNext, :hourMin, :hourMax, :hourGrid,
       :isRTL, 
       :maxDate, :minDate, :monthNames, :monthNamesShort, :minuteMin, :millisecMin, :microsecMin, :minuteMax, :millisecMax, :microsecMax,
-      :minuteGrid, :millisecGrid, :microsecGrid,
+      :minuteGrid, :millisecGrid, :microsecGrid, :minDateTime, :maxDateTime,
       :navigationAsDateFormat, :nextText, :numberOfMonths, 
       :prevText, 
       :selectOtherMonths, :shortYearCutoff, :showAnim, :showButtonPanel, :showCurrentAtPos, 
