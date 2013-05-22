@@ -10,9 +10,20 @@ module JqueryDatetimepick
       input_tag =  JqueryDatetimepick::InstanceTag.new(object_name, method, self, options.delete(:object))
       dp_options, tf_options =  input_tag.split_options(options)
       tf_options[:value] = input_tag.format_datetime(tf_options[:value], String.new(dp_options[:dateFormat])) if  tf_options[:value] && !tf_options[:value].empty? && dp_options.has_key?(:dateFormat)
+      [ :minDateTime, :maxDateTime ].each do |var|
+        if(o = dp_options[var])
+          if o.respond_to?(:strftime)
+            dp_options[var] = "new Date(#{o.to_i*1000})"
+          else
+            dp_options[var] = "function() { return #{o}; }"
+          end
+        end
+      end
+      json = dp_options.to_json
+      json.gsub! /"(new Date\([^\)]*\))"/, '\1'
+      json.gsub! /"(function\(\) \{[^\}]*\})"/, '\1'
       html = input_tag.to_input_field_tag("text", tf_options)
-      method = "datetimepicker"
-      html += javascript_tag("jQuery(document).ready(function(){jQuery('##{input_tag.get_name_and_id["id"]}').#{method}(#{dp_options.to_json})});")
+      html += javascript_tag("jQuery(document).ready(function(){jQuery('##{input_tag.get_name_and_id["id"]}').datetimepicker(#{json})});")
       html.html_safe
     end
     
