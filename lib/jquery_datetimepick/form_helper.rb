@@ -26,7 +26,7 @@ module JqueryDatetimepick::FormBuilder
   end
 end
 
-class JqueryDateTimepick::InstanceTag < ActionView::Helpers::InstanceTag
+class JqueryDatetimepick::InstanceTag < ActionView::Helpers::InstanceTag
 
   FORMAT_REPLACEMENTES = { "yy" => "%Y", "mm" => "%m", "dd" => "%d", "d" => "%-d", "m" => "%-m", "y" => "%y", "M" => "%b", "hh" => "%H", "h" => "%I", "mm" => "%M"}
   
