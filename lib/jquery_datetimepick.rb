@@ -1,6 +1,6 @@
 require "jquery_datetimepick/version"
 
 module JqueryDatetimepick
-    # Your code goes here...
+  class Engine < ::Rails::Engine
   end
 end
