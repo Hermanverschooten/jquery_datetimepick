@@ -22,17 +22,22 @@ Or install it yourself as:
 
 ## Usage
 
-		require the javascript from your applications.js
+require the stylesheet from your application.css
+
+		//* require jquery-ui-timepicker-addon
+		
+require the javascript from your applications.js
 
 		//= require jquery-ui-timepicker-addon
 
-		And require your translations, for Dutch
+And require your translations, for Dutch
 
 		//= require jquery-ui-timepicker-nl
 
-		Or add all supported languages
+Or add all supported languages
 
 		//= require jquery-ui-timepicker-lang
+
 
 ## Contributing
 
