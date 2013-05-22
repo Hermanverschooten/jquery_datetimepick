@@ -40,7 +40,7 @@ Or add all supported languages
 
 Add this to your view.
 
-    <%= datepicker_input "user","birthday" %>
+    <%= datetime_picker_input "user","birthday" %>
 	
 
 Where "event" is your model name and "planned_at" the name of the datetime-field.
