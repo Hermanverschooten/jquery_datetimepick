@@ -1,6 +1,6 @@
 # Jquery::Datetimepick
 
-This gem adds the necessary stylesheets and javascripts to the jquery-datepick gem to make it a datetimepicker.
+This gem adds the necessary stylesheets and javascripts to the jquery_datepick gem to make it a datetimepicker.
 
 The original js/css files are maintained by [Trent Richardson](https://github.com/trentrichardson/jQuery-Timepicker-Addon).
 
@@ -10,7 +10,7 @@ Our version will mirror his version, currently 1.3.
 
 Add this line to your application's Gemfile:
 
-    gem 'jquery-datetimepick'
+    gem 'jquery_datetimepick'
 
 And then execute:
 
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install jquery-datetimepick
+    $ gem install jquery_datetimepick
 
 ## Usage
 
