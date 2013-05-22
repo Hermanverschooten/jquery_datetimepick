@@ -4,7 +4,7 @@ This gem adds the necessary stylesheets and javascripts to the jquery_datepick g
 
 The original js/css files are maintained by [Trent Richardson](https://github.com/trentrichardson/jQuery-Timepicker-Addon).
 
-Our version will mirror his version, currently 1.3.
+The version is currently 1.3.
 
 ## Installation
 
