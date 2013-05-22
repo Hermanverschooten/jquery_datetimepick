@@ -24,20 +24,46 @@ Or install it yourself as:
 
 require the stylesheet from your application.css
 
-		*= require jquery-ui-timepicker-addon
+    *= require jquery-ui-timepicker-addon
 		
 require the javascript from your applications.js
 
-		//= require jquery-ui-timepicker-addon
+    //= require jquery-ui-timepicker-addon
 
 And require your translations, for Dutch
 
-		//= require jquery-ui-timepicker-nl
+    //= require jquery-ui-timepicker-nl
 
 Or add all supported languages
 
-		//= require jquery-ui-timepicker-lang
+    //= require jquery-ui-timepicker-lang
 
+Add this to your view.
+
+    <%= datepicker_input "user","birthday" %>
+	
+
+Where "event" is your model name and "planned_at" the name of the datetime-field.
+
+You can also use it with the form helper like:
+
+    <% form_for(@event) do |f| %>
+      <%= f.datetime_picker 'planned_at' %>
+      <%= f.submit 'Create' %>
+    <% end %>
+
+Nested attributes are permitted as well:
+
+    <% form_for(@company) do |f| %>
+      <% f.fields_for(@event) do |f2| %>
+        <%= f2.datetime_picker 'planned_at' %>
+      <% end %>
+      <%= f.submit 'Create' %>
+    <% end %>
+
+You can pass options as it would be a normal text_field, plus all the datepicker options available (http://jqueryui.com/demos/datepicker/#options)
+
+    <%= datetime_picker_input(:foo, :att1, :minDate => -20, :maxDate => "+1M +10D", :tabindex => 70) %>
 
 ## Contributing
 
