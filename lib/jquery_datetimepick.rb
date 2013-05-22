@@ -7,9 +7,9 @@ module JqueryDatetimepick
   end
   class Railtie < Rails::Railtie
     initializer "JqueryDatetimepick" do
-      ActionController::Base.helper(JqueryDatetimepick::DatepickHelper)
+      ActionController::Base.helper(JqueryDatetimepick::DatetimepickHelper)
       ActionView::Helpers::FormHelper.send(:include, JqueryDatetimepick::FormHelper)
-      ActionView::Base.send(:include, JqueryDatepick::DatetimepickHelper)
+      ActionView::Base.send(:include, JqueryDatetimepick::DatetimepickHelper)
       ActionView::Helpers::FormBuilder.send(:include,JqueryDatetimepick::FormBuilder)
     end
   end
