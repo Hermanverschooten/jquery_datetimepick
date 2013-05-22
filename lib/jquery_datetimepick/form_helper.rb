@@ -1,4 +1,4 @@
-require 'datetime'
+require 'date'
 
 module JqueryDatetimepick
   module FormHelper
