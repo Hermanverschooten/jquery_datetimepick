@@ -24,7 +24,7 @@ Or install it yourself as:
 
 require the stylesheet from your application.css
 
-		//* require jquery-ui-timepicker-addon
+		*= require jquery-ui-timepicker-addon
 		
 require the javascript from your applications.js
 
