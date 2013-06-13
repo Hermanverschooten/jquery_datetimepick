@@ -212,7 +212,7 @@
 
 		    tp_inst._defaults = $.extend({}, this._defaults, inlineSettings, o, overrides, {
 		        evnts:fns,
-		        timepicker: tp_inst // add timepicker as a property of datepicker: $.datepicker._get(dp_inst, 'timepicker');
+		        timepicker: tp_inst // add timepicker as a property of datepicker: $.datepick._get(dp_inst, 'timepicker');
 		    });
 			tp_inst.amNames = $.map(tp_inst._defaults.amNames, function(val) {
 				return val.toUpperCase();
@@ -321,13 +321,13 @@
 		*/
 		_parseTime: function(timeString, withDate) {
 			if (!this.inst) {
-				this.inst = $.datepicker._getInst(this.$input[0]);
+				this.inst = $.datepick._getInst(this.$input[0]);
 			}
 
 			if (withDate || !this._defaults.timeOnly) {
-				var dp_dateFormat = $.datepicker._get(this.inst, 'dateFormat');
+				var dp_dateFormat = $.datepick._get(this.inst, 'dateFormat');
 				try {
-					var parseRes = parseDateTimeInternal(dp_dateFormat, this._defaults.timeFormat, timeString, $.datepicker._getFormatConfig(this.inst), this._defaults);
+					var parseRes = parseDateTimeInternal(dp_dateFormat, this._defaults.timeFormat, timeString, $.datepick._getFormatConfig(this.inst), this._defaults);
 					if (!parseRes.timeObj) {
 						return false;
 					}
@@ -341,7 +341,7 @@
 				}
 				return true;
 			} else {
-				var timeObj = $.datepicker.parseTime(this._defaults.timeFormat, timeString, this._defaults);
+				var timeObj = $.datepick.parseTime(this._defaults.timeFormat, timeString, this._defaults);
 				if (!timeObj) {
 					return false;
 				}
@@ -393,7 +393,7 @@
 						if(litem == 'hour'){
 							for (var h = o[litem+'Min']; h <= max[litem]; h += parseInt(o[litem+'Grid'], 10)) {
 								gridSize[litem]++;
-								var tmph = $.datepicker.formatTime(this.support.ampm? 'hht':'HH', {hour:h}, o);									
+								var tmph = $.datepick.formatTime(this.support.ampm? 'hht':'HH', {hour:h}, o);									
 								html += '<td data-for="'+litem+'">' + tmph + '</td>';
 							}
 						}
@@ -558,8 +558,8 @@
 				return;
 			} // No time so nothing to check here
 
-			if ($.datepicker._get(dp_inst, 'minDateTime') !== null && $.datepicker._get(dp_inst, 'minDateTime') !== undefined && dp_date) {
-				var minDateTime = $.datepicker._get(dp_inst, 'minDateTime'),
+			if ($.datepick._get(dp_inst, 'minDateTime') !== null && $.datepick._get(dp_inst, 'minDateTime') !== undefined && dp_date) {
+				var minDateTime = $.datepick._get(dp_inst, 'minDateTime'),
 					minDateTimeDate = new Date(minDateTime.getFullYear(), minDateTime.getMonth(), minDateTime.getDate(), 0, 0, 0, 0);
 
 				if (this.hourMinOriginal === null || this.minuteMinOriginal === null || this.secondMinOriginal === null || this.millisecMinOriginal === null || this.microsecMinOriginal === null) {
@@ -614,8 +614,8 @@
 				}
 			}
 
-			if ($.datepicker._get(dp_inst, 'maxDateTime') !== null && $.datepicker._get(dp_inst, 'maxDateTime') !== undefined && dp_date) {
-				var maxDateTime = $.datepicker._get(dp_inst, 'maxDateTime'),
+			if ($.datepick._get(dp_inst, 'maxDateTime') !== null && $.datepick._get(dp_inst, 'maxDateTime') !== undefined && dp_date) {
+				var maxDateTime = $.datepick._get(dp_inst, 'maxDateTime'),
 					maxDateTimeDate = new Date(maxDateTime.getFullYear(), maxDateTime.getMonth(), maxDateTime.getDate(), 0, 0, 0, 0);
 
 				if (this.hourMaxOriginal === null || this.minuteMaxOriginal === null || this.secondMaxOriginal === null || this.millisecMaxOriginal === null) {
@@ -781,7 +781,7 @@
 				}
 
 				if (!this.inst) {
-					this.inst = $.datepicker._getInst(this.$input[0]);
+					this.inst = $.datepick._getInst(this.$input[0]);
 				}
 
 				this._limitMinMaxDateTime(this.inst, true);
@@ -791,13 +791,13 @@
 			}
 
 			// Updates the time within the timepicker
-			this.formattedTime = $.datepicker.formatTime(o.timeFormat, this, o);
+			this.formattedTime = $.datepick.formatTime(o.timeFormat, this, o);
 			if (this.$timeObj) {
 				if(pickerTimeFormat === o.timeFormat){
 					this.$timeObj.text(this.formattedTime + pickerTimeSuffix);
 				}
 				else{
-					this.$timeObj.text($.datepicker.formatTime(pickerTimeFormat, this, o) + pickerTimeSuffix);
+					this.$timeObj.text($.datepick.formatTime(pickerTimeFormat, this, o) + pickerTimeSuffix);
 				}
 			}
 
@@ -824,11 +824,11 @@
 		*/
 		_updateDateTime: function(dp_inst) {
 			dp_inst = this.inst || dp_inst;
-			var dt = $.datepicker._daylightSavingAdjust(new Date(dp_inst.selectedYear, dp_inst.selectedMonth, dp_inst.selectedDay)),
-				dateFmt = $.datepicker._get(dp_inst, 'dateFormat'),
-				formatCfg = $.datepicker._getFormatConfig(dp_inst),
+			var dt = $.datepick._daylightSavingAdjust(new Date(dp_inst.selectedYear, dp_inst.selectedMonth, dp_inst.selectedDay)),
+				dateFmt = $.datepick._get(dp_inst, 'dateFormat'),
+				formatCfg = $.datepick._getFormatConfig(dp_inst),
 				timeAvailable = dt !== null && this.timeDefined;
-			this.formattedDate = $.datepicker.formatDate(dateFmt, (dt === null ? new Date() : dt), formatCfg);
+			this.formattedDate = $.datepick.formatDate(dateFmt, (dt === null ? new Date() : dt), formatCfg);
 			var formattedDateTime = this.formattedDate;
 			
 			// if a slider was changed but datepicker doesn't have a value yet, set it
@@ -868,7 +868,7 @@
 				
 				if(!this._defaults.timeOnly){
 					if (this._defaults.altFormat){
-						altFormattedDateTime = $.datepicker.formatDate(this._defaults.altFormat, (dt === null ? new Date() : dt), formatCfg);
+						altFormattedDateTime = $.datepick.formatDate(this._defaults.altFormat, (dt === null ? new Date() : dt), formatCfg);
 					}
 					else{
 						altFormattedDateTime = this.formattedDate;
@@ -880,7 +880,7 @@
 				}
 
 				if(this._defaults.altTimeFormat){
-					altFormattedDateTime += $.datepicker.formatTime(this._defaults.altTimeFormat, this, this._defaults) + altTimeSuffix;
+					altFormattedDateTime += $.datepick.formatTime(this._defaults.altTimeFormat, this, this._defaults) + altTimeSuffix;
 				}
 				else{
 					altFormattedDateTime += this.formattedTime + altTimeSuffix;
@@ -896,12 +896,12 @@
 		_onFocus: function() {
 			if (!this.$input.val() && this._defaults.defaultValue) {
 				this.$input.val(this._defaults.defaultValue);
-				var inst = $.datepicker._getInst(this.$input.get(0)),
-					tp_inst = $.datepicker._get(inst, 'timepicker');
+				var inst = $.datepick._getInst(this.$input.get(0)),
+					tp_inst = $.datepick._get(inst, 'timepicker');
 				if (tp_inst) {
 					if (tp_inst._defaults.timeOnly && (inst.input.val() != inst.lastVal)) {
 						try {
-							$.datepicker._updateDatepicker(inst);
+							$.datepick._updateDatepicker(inst);
 						} catch (err) {
 							$.timepicker.log(err);
 						}
@@ -983,7 +983,7 @@
 					for(var i=min; i<=max; i+=step){						
 						sel += '<option value="'+ i +'"'+ (i==val? ' selected':'') +'>';
 						if(unit == 'hour'){
-							sel += $.datepicker.formatTime($.trim(format.replace(/[^ht ]/ig,'')), {hour:i}, tp_inst._defaults);
+							sel += $.datepick.formatTime($.trim(format.replace(/[^ht ]/ig,'')), {hour:i}, tp_inst._defaults);
 						}
 						else if(unit == 'millisec' || unit == 'microsec' || i >= 10){ sel += i; }
 						else {sel += '0'+ i.toString(); }
@@ -1071,7 +1071,7 @@
 	/*
 	* Public Utility to parse date and time
 	*/
-	$.datepicker.parseDateTime = function(dateFormat, timeFormat, dateTimeString, dateSettings, timeSettings) {
+	$.datepick.parseDateTime = function(dateFormat, timeFormat, dateTimeString, dateSettings, timeSettings) {
 		var parseRes = parseDateTimeInternal(dateFormat, timeFormat, dateTimeString, dateSettings, timeSettings);
 		if (parseRes.timeObj) {
 			var t = parseRes.timeObj;
@@ -1085,7 +1085,7 @@
 	/*
 	* Public utility to parse time
 	*/
-	$.datepicker.parseTime = function(timeFormat, timeString, options) {		
+	$.datepick.parseTime = function(timeFormat, timeString, options) {		
 		var o = extendRemove(extendRemove({}, $.timepicker._defaults), options || {}),
 			iso8601 = (timeFormat.replace(/\'.*?\'/g,'').indexOf('Z') !== -1);
 
@@ -1255,7 +1255,7 @@
 	* time = a {}, not a Date() for timezones
 	* options = essentially the regional[].. amNames, pmNames, ampm
 	*/
-	$.datepicker.formatTime = function(format, time, options) {
+	$.datepick.formatTime = function(format, time, options) {
 		options = options || {};
 		options = $.extend({}, $.timepicker._defaults, options);
 		time = $.extend({
@@ -1321,8 +1321,8 @@
 	* the bad hack :/ override datepicker so it doesnt close on select
 	// inspired: http://stackoverflow.com/questions/1252512/jquery-datepicker-prevent-closing-picker-when-clicking-a-date/1762378#1762378
 	*/
-	$.datepicker._base_selectDate = $.datepicker._selectDate;
-	$.datepicker._selectDate = function(id, dateStr) {
+	$.datepick._base_selectDate = $.datepick._selectDate;
+	$.datepick._selectDate = function(id, dateStr) {
 		var inst = this._getInst($(id)[0]),
 			tp_inst = this._get(inst, 'timepicker');
 
@@ -1343,12 +1343,12 @@
 	* second bad hack :/ override datepicker so it triggers an event when changing the input field
 	* and does not redraw the datepicker on every selectDate event
 	*/
-	$.datepicker._base_updateDatepicker = $.datepicker._updateDatepicker;
-	$.datepicker._updateDatepicker = function(inst) {
+	$.datepick._base_updateDatepicker = $.datepick._updateDatepicker;
+	$.datepick._updateDatepicker = function(inst) {
 
 		// don't popup the datepicker if there is another instance already opened
 		var input = inst.input[0];
-		if ($.datepicker._curInst && $.datepicker._curInst != inst && $.datepicker._datepickerShowing && $.datepicker._lastInput != input) {
+		if ($.datepick._curInst && $.datepick._curInst != inst && $.datepick._datepickerShowing && $.datepick._lastInput != input) {
 			return;
 		}
 
@@ -1367,16 +1367,16 @@
 	/*
 	* third bad hack :/ override datepicker so it allows spaces and colon in the input field
 	*/
-	$.datepicker._base_doKeyPress = $.datepicker._doKeyPress;
-	$.datepicker._doKeyPress = function(event) {
-		var inst = $.datepicker._getInst(event.target),
-			tp_inst = $.datepicker._get(inst, 'timepicker');
+	$.datepick._base_doKeyPress = $.datepick._doKeyPress;
+	$.datepick._doKeyPress = function(event) {
+		var inst = $.datepick._getInst(event.target),
+			tp_inst = $.datepick._get(inst, 'timepicker');
 
 		if (tp_inst) {
-			if ($.datepicker._get(inst, 'constrainInput')) {
+			if ($.datepick._get(inst, 'constrainInput')) {
 				var ampm = tp_inst.support.ampm,
 					tz = tp_inst._defaults.showTimezone !== null? tp_inst._defaults.showTimezone : tp_inst.support.timezone,					
-					dateChars = $.datepicker._possibleChars($.datepicker._get(inst, 'dateFormat')),
+					dateChars = $.datepick._possibleChars($.datepick._get(inst, 'dateFormat')),
 					datetimeChars = tp_inst._defaults.timeFormat.toString()
 											.replace(/[hms]/g, '')
 											.replace(/TT/g, ampm ? 'APM' : '')
@@ -1395,31 +1395,31 @@
 			}
 		}
 
-		return $.datepicker._base_doKeyPress(event);
+		return $.datepick._base_doKeyPress(event);
 	};
 
 	/*
 	* Fourth bad hack :/ override _updateAlternate function used in inline mode to init altField
 	*/
-	$.datepicker._base_updateAlternate = $.datepicker._updateAlternate;
+	$.datepick._base_updateAlternate = $.datepick._updateAlternate;
 	/* Update any alternate field to synchronise with the main field. */
-	$.datepicker._updateAlternate = function(inst) {
+	$.datepick._updateAlternate = function(inst) {
 		var tp_inst = this._get(inst, 'timepicker');
 		if(tp_inst){
 			var altField = tp_inst._defaults.altField;
 			if (altField) { // update alternate field too
 				var altFormat = tp_inst._defaults.altFormat || tp_inst._defaults.dateFormat,
 					date = this._getDate(inst),
-					formatCfg = $.datepicker._getFormatConfig(inst),
+					formatCfg = $.datepick._getFormatConfig(inst),
 					altFormattedDateTime = '', 
 					altSeparator = tp_inst._defaults.altSeparator ? tp_inst._defaults.altSeparator : tp_inst._defaults.separator, 
 					altTimeSuffix = tp_inst._defaults.altTimeSuffix ? tp_inst._defaults.altTimeSuffix : tp_inst._defaults.timeSuffix,
 					altTimeFormat = tp_inst._defaults.altTimeFormat !== null ? tp_inst._defaults.altTimeFormat : tp_inst._defaults.timeFormat;
 				
-				altFormattedDateTime += $.datepicker.formatTime(altTimeFormat, tp_inst, tp_inst._defaults) + altTimeSuffix;
+				altFormattedDateTime += $.datepick.formatTime(altTimeFormat, tp_inst, tp_inst._defaults) + altTimeSuffix;
 				if(!tp_inst._defaults.timeOnly && !tp_inst._defaults.altFieldTimeOnly && date !== null){
 					if(tp_inst._defaults.altFormat){
-						altFormattedDateTime = $.datepicker.formatDate(tp_inst._defaults.altFormat, date, formatCfg) + altSeparator + altFormattedDateTime;
+						altFormattedDateTime = $.datepick.formatDate(tp_inst._defaults.altFormat, date, formatCfg) + altSeparator + altFormattedDateTime;
 					}
 					else{
 						altFormattedDateTime = tp_inst.formattedDate + altSeparator + altFormattedDateTime;
@@ -1429,36 +1429,36 @@
 			}
 		}
 		else{
-			$.datepicker._base_updateAlternate(inst);
+			$.datepick._base_updateAlternate(inst);
 		}
 	};
 
 	/*
 	* Override key up event to sync manual input changes.
 	*/
-	$.datepicker._base_doKeyUp = $.datepicker._doKeyUp;
-	$.datepicker._doKeyUp = function(event) {
-		var inst = $.datepicker._getInst(event.target),
-			tp_inst = $.datepicker._get(inst, 'timepicker');
+	$.datepick._base_doKeyUp = $.datepick._doKeyUp;
+	$.datepick._doKeyUp = function(event) {
+		var inst = $.datepick._getInst(event.target),
+			tp_inst = $.datepick._get(inst, 'timepicker');
 
 		if (tp_inst) {
 			if (tp_inst._defaults.timeOnly && (inst.input.val() != inst.lastVal)) {
 				try {
-					$.datepicker._updateDatepicker(inst);
+					$.datepick._updateDatepicker(inst);
 				} catch (err) {
 					$.timepicker.log(err);
 				}
 			}
 		}
 
-		return $.datepicker._base_doKeyUp(event);
+		return $.datepick._base_doKeyUp(event);
 	};
 
 	/*
 	* override "Today" button to also grab the time.
 	*/
-	$.datepicker._base_gotoToday = $.datepicker._gotoToday;
-	$.datepicker._gotoToday = function(id) {
+	$.datepick._base_gotoToday = $.datepick._gotoToday;
+	$.datepick._gotoToday = function(id) {
 		var inst = this._getInst($(id)[0]),
 			$dp = inst.dpDiv;
 		this._base_gotoToday(id);
@@ -1472,7 +1472,7 @@
 	/*
 	* Disable & enable the Time in the datetimepicker
 	*/
-	$.datepicker._disableTimepickerDatepicker = function(target) {
+	$.datepick._disableTimepickerDatepicker = function(target) {
 		var inst = this._getInst(target);
 		if (!inst) {
 			return;
@@ -1486,7 +1486,7 @@
 		}
 	};
 
-	$.datepicker._enableTimepickerDatepicker = function(target) {
+	$.datepick._enableTimepickerDatepicker = function(target) {
 		var inst = this._getInst(target);
 		if (!inst) {
 			return;
@@ -1504,7 +1504,7 @@
 	/*
 	* Create our own set time function
 	*/
-	$.datepicker._setTime = function(inst, date) {
+	$.datepick._setTime = function(inst, date) {
 		var tp_inst = this._get(inst, 'timepicker');
 		if (tp_inst) {
 			var defaults = tp_inst._defaults;
@@ -1527,7 +1527,7 @@
 	/*
 	* Create new public method to set only time, callable as $().datepicker('setTime', date)
 	*/
-	$.datepicker._setTimeDatepicker = function(target, date, withDate) {
+	$.datepick._setTimeDatepicker = function(target, date, withDate) {
 		var inst = this._getInst(target);
 		if (!inst) {
 			return;
@@ -1559,8 +1559,8 @@
 	/*
 	* override setDate() to allow setting time too within Date object
 	*/
-	$.datepicker._base_setDateDatepicker = $.datepicker._setDateDatepicker;
-	$.datepicker._setDateDatepicker = function(target, date) {
+	$.datepick._base_setDateDatepicker = $.datepick._setDateDatepicker;
+	$.datepick._setDateDatepicker = function(target, date) {
 		var inst = this._getInst(target);
 		if (!inst) {
 			return;
@@ -1586,8 +1586,8 @@
 	/*
 	* override getDate() to allow getting time too within Date object
 	*/
-	$.datepicker._base_getDateDatepicker = $.datepicker._getDateDatepicker;
-	$.datepicker._getDateDatepicker = function(target, noDefault) {
+	$.datepick._base_getDateDatepicker = $.datepick._getDateDatepicker;
+	$.datepick._getDateDatepicker = function(target, noDefault) {
 		var inst = this._getInst(target);
 		if (!inst) {
 			return;
@@ -1622,8 +1622,8 @@
 	* override parseDate() because UI 1.8.14 throws an error about "Extra characters"
 	* An option in datapicker to ignore extra format characters would be nicer.
 	*/
-	$.datepicker._base_parseDate = $.datepicker.parseDate;
-	$.datepicker.parseDate = function(format, value, settings) {
+	$.datepick._base_parseDate = $.datepick.parseDate;
+	$.datepick.parseDate = function(format, value, settings) {
 		var date;
 		try {
 			date = this._base_parseDate(format, value, settings);
@@ -1644,8 +1644,8 @@
 	/*
 	* override formatDate to set date with time to the input
 	*/
-	$.datepicker._base_formatDate = $.datepicker._formatDate;
-	$.datepicker._formatDate = function(inst, day, month, year) {
+	$.datepick._base_formatDate = $.datepick._formatDate;
+	$.datepick._formatDate = function(inst, day, month, year) {
 		var tp_inst = this._get(inst, 'timepicker');
 		if (tp_inst) {
 			tp_inst._updateDateTime(inst);
@@ -1657,8 +1657,8 @@
 	/*
 	* override options setter to add time to maxDate(Time) and minDate(Time). MaxDate
 	*/
-	$.datepicker._base_optionDatepicker = $.datepicker._optionDatepicker;
-	$.datepicker._optionDatepicker = function(target, name, value) {
+	$.datepick._base_optionDatepicker = $.datepick._optionDatepicker;
+	$.datepick._optionDatepicker = function(target, name, value) {
 		var inst = this._getInst(target),
 	        name_clone;
 		if (!inst) {
@@ -1732,9 +1732,9 @@
 		    }
 		}
 		if (value === undefined) {
-			return this._base_optionDatepicker.call($.datepicker, target, name);
+			return this._base_optionDatepicker.call($.datepick, target, name);
 		}
-		return this._base_optionDatepicker.call($.datepicker, target, name_clone || name, value);
+		return this._base_optionDatepicker.call($.datepick, target, name_clone || name, value);
 	};
 	
 	/*
@@ -1857,10 +1857,10 @@
 	var parseDateTimeInternal = function(dateFormat, timeFormat, dateTimeString, dateSettings, timeSettings) {
 		var date;
 		var splitRes = splitDateTime(dateFormat, dateTimeString, dateSettings, timeSettings);
-		date = $.datepicker._base_parseDate(dateFormat, splitRes[0], dateSettings);
+		date = $.datepick._base_parseDate(dateFormat, splitRes[0], dateSettings);
 		if (splitRes[1] !== '') {
 			var timeString = splitRes[1],
-				parsedTime = $.datepicker.parseTime(timeFormat, timeString, timeSettings);
+				parsedTime = $.datepick.parseTime(timeFormat, timeString, timeSettings);
 
 			if (parsedTime === null) {
 				throw 'Wrong time format';
