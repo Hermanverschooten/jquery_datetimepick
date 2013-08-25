@@ -17,5 +17,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
   gem.add_dependency "jquery_datepick"
+  gem.add_development_dependency "railties"
   gem.license       = 'MIT'
 end
