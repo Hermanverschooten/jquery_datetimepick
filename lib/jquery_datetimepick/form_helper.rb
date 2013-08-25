@@ -7,7 +7,7 @@ module JqueryDatetimepick
 
     # Mehtod that generates datetimepicker input field inside a form
     def datetimepicker(object_name, method, options = {})
-      input_tag =  JqueryDatetimepick::InstanceTag.new(object_name, method, self, options.delete(:object))
+      input_tag =  JqueryDatetimepick::InstanceTag.new(object_name, method, self, options)
       dp_options, tf_options =  input_tag.split_options(options)
       tf_options[:value] = input_tag.format_datetime(tf_options[:value], String.new(dp_options[:dateFormat])) if  tf_options[:value] && !tf_options[:value].empty? && dp_options.has_key?(:dateFormat)
       [ :minDateTime, :maxDateTime ].each do |var|
@@ -22,7 +22,11 @@ module JqueryDatetimepick
       json = dp_options.to_json
       json.gsub! /"(new Date\([^\)]*\))"/, '\1'
       json.gsub! /"(function\(\) \{[^\}]*\})"/, '\1'
-      html = input_tag.to_input_field_tag("text", tf_options)
+      html= if defined?(ActionView::Helpers::InstanceTag) && ActionView::Helpers::InstanceTag.instance_method(:initialize).arity != 0
+        input_tag.to_input_field_tag("text", tf_options)
+      else
+        ActionView::Helpers::Tags::TextField.new(object_name, method, tf_options).render
+      end
       html += javascript_tag("jQuery(document).ready(function(){jQuery('##{input_tag.get_name_and_id["id"]}').datetimepicker(#{json})});")
       html.html_safe
     end
@@ -37,8 +41,7 @@ module JqueryDatetimepick::FormBuilder
   end
 end
 
-class JqueryDatetimepick::InstanceTag < ActionView::Helpers::InstanceTag
-
+module JqueryDatetimepick_instance
   FORMAT_REPLACEMENTES = { "yy" => "%Y", "mm" => "%m", "dd" => "%d", "d" => "%-d", "m" => "%-m", "y" => "%y", "M" => "%b", "hh" => "%H", "h" => "%I", "mm" => "%M"}
   
   # Extending ActionView::Helpers::InstanceTag module to make Rails build the name and id
@@ -91,3 +94,14 @@ class JqueryDatetimepick::InstanceTag < ActionView::Helpers::InstanceTag
     format.gsub!(/#{FORMAT_REPLACEMENTES.keys.join("|")}/) { |match| FORMAT_REPLACEMENTES[match] }
   end
 end
+
+if defined?(ActionView::Helpers::InstanceTag) && ActionView::Helpers::InstanceTag.instance_method(:initialize).arity != 0
+class JqueryDatetimepick::InstanceTag < ActionView::Helpers::InstanceTag
+    include JqueryDatetimepick_instance
+  end
+else
+  class JqueryDatetimepick::InstanceTag < ActionView::Helpers::Tags::Base
+    include JqueryDatetimepick_instance
+  end
+end
+
