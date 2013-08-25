@@ -27,7 +27,7 @@ module JqueryDatetimepick
       else
         ActionView::Helpers::Tags::TextField.new(object_name, method, tf_options).render
       end
-      html += javascript_tag("jQuery(document).ready(function(){jQuery('##{input_tag.get_name_and_id["id"]}').datetimepicker(#{json})});")
+      html += javascript_tag("jQuery(document).ready(function(){jQuery('##{input_tag.get_name_and_id["id"]}').datetimepicker($.extend(#{json}, $.timepicker.regional[#{I18n.locale}]))});")
       html.html_safe
     end
     
