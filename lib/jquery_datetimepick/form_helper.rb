@@ -2,7 +2,7 @@ require 'date'
 
 module JqueryDatetimepick
   module FormHelper
-    
+
     include ActionView::Helpers::JavaScriptHelper
 
     # Mehtod that generates datetimepicker input field inside a form
@@ -30,7 +30,7 @@ module JqueryDatetimepick
       html += javascript_tag("jQuery(document).ready(function(){jQuery('##{input_tag.get_name_and_id["id"]}').datetimepicker($.extend(#{json}, $.timepicker.regional[#{I18n.locale}]))});")
       html.html_safe
     end
-    
+
   end
 
 end
@@ -42,45 +42,45 @@ module JqueryDatetimepick::FormBuilder
 end
 
 module JqueryDatetimepick_instance
-  FORMAT_REPLACEMENTES = { "yy" => "%Y", "mm" => "%m", "dd" => "%d", "d" => "%-d", "m" => "%-m", "y" => "%y", "M" => "%b", "hh" => "%H", "h" => "%I", "mm" => "%M"}
-  
+  FORMAT_REPLACEMENTES = { "yy" => "%Y", "mm" => "%m", "dd" => "%d", "d" => "%-d", "m" => "%-m", "y" => "%y", "M" => "%b", "hh" => "%H", "h" => "%I", "MM" => "%M"}
+
   # Extending ActionView::Helpers::InstanceTag module to make Rails build the name and id
   # Just returns the options before generate the HTML in order to use the same id and name (see to_input_field_tag mehtod)
-  
+
   def get_name_and_id(options = {})
     add_default_name_and_id(options)
     options
   end
-  
+
   def available_datetimepicker_options
-    [ :altField, :altFormat, :appendText, :autoSize, :alwaysSetTime, :altFieldTimeOnly, :altTimeFormat, :altSeparator, 
+    [ :altField, :altFormat, :appendText, :autoSize, :alwaysSetTime, :altFieldTimeOnly, :altTimeFormat, :altSeparator,
       :altTimeSuffix, :addSliderAccess,
-      :buttonImage, :buttonImageOnly, :buttonText, 
-      :calculateWeek, :changeMonth, :changeYear, :closeText, :constrainInput, :currentText, :controlType, 
+      :buttonImage, :buttonImageOnly, :buttonText,
+      :calculateWeek, :changeMonth, :changeYear, :closeText, :constrainInput, :currentText, :controlType,
       :disabled, :dateFormat, :dayNames, :dayNamesMin, :dayNamesShort, :defaultDate, :duration, :defaultValue,
-      :firstDay, 
-      :gotoCurrent, 
+      :firstDay,
+      :gotoCurrent,
       :hideIfNoPrevNext, :hourMin, :hourMax, :hourGrid,
-      :isRTL, 
+      :isRTL,
       :maxDate, :minDate, :monthNames, :monthNamesShort, :minuteMin, :millisecMin, :microsecMin, :minuteMax, :millisecMax, :microsecMax,
       :minuteGrid, :millisecGrid, :microsecGrid, :minDateTime, :maxDateTime,
-      :navigationAsDateFormat, :nextText, :numberOfMonths, 
-      :prevText, 
-      :selectOtherMonths, :shortYearCutoff, :showAnim, :showButtonPanel, :showCurrentAtPos, 
+      :navigationAsDateFormat, :nextText, :numberOfMonths,
+      :prevText,
+      :selectOtherMonths, :shortYearCutoff, :showAnim, :showButtonPanel, :showCurrentAtPos,
       :showMonthAfterYear, :showOn, :showOptions, :showOtherMonths, :showWeek, :stepMonths,
       :showHour, :showMinute, :showSecond, :showMilliSecond, :showMicrosec, :showTimewone,
-      :showTime,:stepHour, :stepMinute, :stepSecond, :stepMillisec, :stepMicrosec, :secondMin, :secondMax, 
+      :showTime,:stepHour, :stepMinute, :stepSecond, :stepMillisec, :stepMicrosec, :secondMin, :secondMax,
       :secondGrid, :separator, :showTimepicker,
       :timeOnly, :timezonelist,
-      :weekHeader, 
+      :weekHeader,
       :yearRange, :yearSuffix]
   end
-  
+
   def split_options(options)
     tf_options = options.slice!(*available_datetimepicker_options)
     return options, tf_options
   end
-  
+
   def format_datetime(tb_formatted, format)
     new_format = translate_format(format)
     DateTime.parse(tb_formatted).strftime(new_format)
@@ -89,7 +89,7 @@ module JqueryDatetimepick_instance
   # Method that translates the datepicker date formats, defined in (http://docs.jquery.com/UI/Datepicker/formatDate)
   # to the ruby standard format (http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime).
   # This gem is not going to support all the options, just the most used.
-  
+
   def translate_format(format)
     format.gsub!(/#{FORMAT_REPLACEMENTES.keys.join("|")}/) { |match| FORMAT_REPLACEMENTES[match] }
   end
